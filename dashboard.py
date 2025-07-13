@@ -226,7 +226,7 @@ elif page == "Immune Response Statistics":
 
 #Page 3: Subset Analysis
 elif page == "Subset Analysis":
-    st.markdown("<h2 style='text-align: center;'>Melanoma PBMC Samples at Basline: Subset Analysis</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Melanoma PBMC Samples at Baseline: Subset Analysis</h2>", unsafe_allow_html=True)
 
     query_choice = st.selectbox("Choose Analysis Question:", [
         "Baseline melanoma PBMC samples treated with miraclib",
@@ -235,31 +235,29 @@ elif page == "Subset Analysis":
         "How many subjects were males/females?"
     ])
 
-    file_name_map = {
-        "Baseline melanoma PBMC samples treated with miraclib": "mel_PBMC_samples_t0.csv",
-        "How many samples from each project?": "project_sample_nums.csv",
-        "How many subjects were responders/non-responders?": "response_subject_nums.csv",
-        "How many subjects were males/females?": "sex_subject_nums.csv"
-    }
-
     table = None
     query_heading = ""
+    filename = ""
 
     if query_choice == "Baseline melanoma PBMC samples treated with miraclib":
         query_heading = "Identify all melanoma PBMC samples at baseline (time_from_treatment_start = 0) from patients treated with miraclib:"
         table = mel_pbmcs
+        filename = "mel_pbmcs.csv"
     elif query_choice == "How many samples from each project?":
         table = project_counts
+        filename = "project_counts.csv"
     elif query_choice == "How many subjects were responders/non-responders?":
         table = response_counts
+        filename = "response_counts.csv"
     elif query_choice == "How many subjects were males/females?":
         table = sex_counts
+        filename = "sex_counts.csv"
 
     if table is not None:
         if query_heading:
             st.markdown(f"**{query_heading}**")
         st.dataframe(table, use_container_width=True)
         csv = table.to_csv(index=False).encode('utf-8')
-        st.download_button("Download This Table", csv, file_name_map[query_choice], "text/csv")
+        st.download_button("Download This Table", csv, filename, "text/csv")
 
 st.markdown("---")
