@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import io
 
-# Load and normalize all data
+#Load and normalize all data
 relative_freq = pd.read_csv("Outputs/relative_frequencies.csv")
 relative_freq.columns = relative_freq.columns.str.strip().str.lower()
 
@@ -35,18 +35,18 @@ stats_time14.columns = stats_time14.columns.str.strip().str.lower()
 population_stats = pd.read_csv("Outputs/population_stats.csv")
 population_stats.columns = population_stats.columns.str.strip().str.lower()
 
-# Set the Streamlit page config
+#Set the page configuration
 st.set_page_config(page_title="Loblaw Bio Clinical Trial Dashboard", layout="wide")
 st.markdown("<h1 style='text-align: center;'>Loblaw Bio Clinical Trial Dashboard</h1>", unsafe_allow_html=True)
 
-# Sidebar navigation
+#Sidebar navigation
 page = st.sidebar.radio("Navigate", [
     "Data Overview", 
     "Immune Response Statistics", 
     "Subset Analysis"
 ])
 
-# Page: Data Overview
+#Page 1: Data Overview
 if page == "Data Overview":
     st.markdown("<h2 style='text-align: center;'>Immune Cell Population Frequencies per Sample</h2>", unsafe_allow_html=True)
 
@@ -64,7 +64,7 @@ if page == "Data Overview":
     csv = filtered.to_csv(index=False).encode('utf-8')
     st.download_button("Download Filtered Data", csv, "filtered_frequencies.csv", "text/csv")
 
-# Page: Immune Response Statistics
+#Page 2: Immune Response Statistics
 elif page == "Immune Response Statistics":
     st.markdown("<h2 style='text-align: center;'>Immune Response Statistics</h2>", unsafe_allow_html=True)
 
@@ -224,7 +224,7 @@ elif page == "Immune Response Statistics":
             "text/csv"
         )
 
-# Page: Subset Analysis
+#Page 3: Subset Analysis
 elif page == "Subset Analysis":
     st.markdown("<h2 style='text-align: center;'>Melanoma PBMC Samples at Basline: Subset Analysis</h2>", unsafe_allow_html=True)
 
@@ -255,4 +255,3 @@ elif page == "Subset Analysis":
         st.download_button("Download This Table", csv, f"{query_choice.replace(' ', '_').lower()}.csv", "text/csv")
 
 st.markdown("---")
-st.caption("Built for Loblaw Bio – powered by Streamlit")
