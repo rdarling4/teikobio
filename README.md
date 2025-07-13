@@ -16,6 +16,7 @@ July 2025
 - `stat_analysis.py`  
 - `subset_analysis.py`  
 - `dashboard.py`  *(no need to run it, but it's the code for the interactive dashboard)*
+- `requirements.txt`
 
 ---
 
