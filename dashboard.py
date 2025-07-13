@@ -235,6 +235,13 @@ elif page == "Subset Analysis":
         "How many subjects were males/females?"
     ])
 
+    file_name_map = {
+        "Baseline melanoma PBMC samples treated with miraclib": "mel_PBMC_samples_t0.csv",
+        "How many samples from each project?": "project_sample_nums.csv",
+        "How many subjects were responders/non-responders?": "response_subject_nums.csv",
+        "How many subjects were males/females?": "sex_subject_nums.csv"
+    }
+
     table = None
     query_heading = ""
 
@@ -249,9 +256,10 @@ elif page == "Subset Analysis":
         table = sex_counts
 
     if table is not None:
-        st.markdown(f"**{query_heading}**")
+        if query_heading:
+            st.markdown(f"**{query_heading}**")
         st.dataframe(table, use_container_width=True)
         csv = table.to_csv(index=False).encode('utf-8')
-        st.download_button("Download This Table", csv, f"{query_choice.replace(' ', '_').lower()}.csv", "text/csv")
+        st.download_button("Download This Table", csv, file_name_map[query_choice], "text/csv")
 
 st.markdown("---")
